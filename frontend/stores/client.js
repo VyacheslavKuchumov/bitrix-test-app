@@ -8,11 +8,10 @@ export const useClientStore = defineStore('client', () => {
     const orderBy = ref('LAST_NAME');
     const orderDirection = ref('ASC');
 
-    const changeSearchTerm = (term) => {
-        searchTerm.value = term;
+    
+    watch(searchTerm, () => {
         page.value = 1; // Reset to first page on new search
-    }
-
+    });
 
     return {
         searchTerm,
@@ -20,7 +19,6 @@ export const useClientStore = defineStore('client', () => {
         pageSize,
         orderBy,
         orderDirection,
-        changeSearchTerm,
         
     };
 

@@ -146,9 +146,7 @@ async function fetchCustomers() {
 
 const debouncedFetchCustomers = useDebounceFn(fetchCustomers, 500)
 
-watch(store.searchTerm, (newValue) => {
-    store.changeSearchTerm(newValue)
-})
+
 watch(options, (newOptions) => {
     if (options.value.sortBy.length) {
 
