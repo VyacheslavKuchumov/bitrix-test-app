@@ -7,7 +7,7 @@
         >
             <template v-slot:text>
             <v-text-field
-                v-model="search"
+                v-model="store.searchTerm"
                 label="Поиск"
                 prepend-inner-icon="mdi-magnify"
                 variant="outlined"
@@ -81,13 +81,13 @@
 <script setup>
 import { useDebounceFn } from '@vueuse/core'
 const { formatDate } = useDateConverter()
+const config = useRuntimeConfig()
 
 const store = useClientStore()
 
-const search = ref('')
 
 
-// Loading states
+
 const overlay = ref(false)
 const pending = ref(false)
 
@@ -114,7 +114,7 @@ async function fetchCustomers() {
     overlay.value = true
     pending.value = true
     
-    const res = await $fetch(`https://b24-6bvl6h.bitrix24.ru/rest/1/a3p29ejngz9z0662/crm.contact.list`, {
+    const res = await $fetch(`${config.public.BITRIX_WEBHOOK_URL}/crm.contact.list`, {
         method: 'post',
         body: {
             ...(store.searchTerm
@@ -146,7 +146,7 @@ async function fetchCustomers() {
 
 const debouncedFetchCustomers = useDebounceFn(fetchCustomers, 500)
 
-watch(search, (newValue) => {
+watch(store.searchTerm, (newValue) => {
     store.changeSearchTerm(newValue)
 })
 watch(options, (newOptions) => {

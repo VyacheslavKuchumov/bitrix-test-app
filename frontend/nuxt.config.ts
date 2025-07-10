@@ -13,5 +13,11 @@ export default defineNuxtConfig({
     'vuetify-nuxt-module',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
-  ]
+  ],
+  runtimeConfig: {
+
+    public: {
+      BITRIX_WEBHOOK_URL: process.env.BITRIX_WEBHOOK_URL,
+    }
+  }
 })
