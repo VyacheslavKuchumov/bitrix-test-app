@@ -9,7 +9,7 @@ export const useClientStore = defineStore('client', () => {
     const orderDirection = ref('ASC');
 
     
-    watch(searchTerm, () => {
+    watch([searchTerm, orderBy, orderDirection], () => {
         page.value = 1; // Reset to first page on new search
     });
 
